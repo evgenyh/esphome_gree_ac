@@ -15,11 +15,10 @@ esp8266:
 # Enable Home Assistant API
 api:
   encryption:
-    key: "[insert yours]"
+    key: "12345"
 
 ota:
   - platform: esphome
-    password: "[insert yours]"
 
 web_server:
   local: true
@@ -32,7 +31,7 @@ wifi:
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
     ssid: "mazgan"
-    password: "12345678"
+    password: "1234567890"
 
 captive_portal:
 
