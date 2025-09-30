@@ -14,8 +14,6 @@ esp8266:
 
 # Enable Home Assistant API
 api:
-  encryption:
-    key: "12345"
 
 web_server:
   port: 80
