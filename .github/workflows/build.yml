@@ -20,4 +20,4 @@ jobs:
       run: pip install esphome
 
     - name: Build ESPHome tadiran wifi firmware
-      run: esphome compile examples/tadiran.yaml
+      run: esphome compile build/tadiran.yaml
