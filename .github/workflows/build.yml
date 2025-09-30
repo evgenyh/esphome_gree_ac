@@ -22,8 +22,10 @@ jobs:
     - name: Build ESPHome tadiran wifi firmware
       run: esphome compile build/tadiran.yaml
       
-    - name: Upload firmware artifact
+    - name: Archive firmware binaries and ELF files
       uses: actions/upload-artifact@v4
       with:
-        name: firmware
-        path: .pioenvs/gree/firmware.bin
+        name: esphome-artifacts
+        path: |
+          **/*.bin
+          **/*.elf
