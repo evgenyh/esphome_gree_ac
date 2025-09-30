@@ -1,4 +1,4 @@
-substitutions:
+`substitutions:
   node_name: gree # Use a unique name.
   node_id: Gree_ac    # Use a unique id.
   friendly_node_name: "Gree AC"
@@ -21,14 +21,18 @@ ota:
   - platform: esphome
     password: "[insert yours]"
 
+web_server:
+  local: true
+  version: 2
+
 wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
-    ssid: "Gree Fallback Hotspot"
-    password: "[insert yours]"
+    ssid: "mazgan"
+    password: "12345678"
 
 captive_portal:
 
