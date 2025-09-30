@@ -1,4 +1,4 @@
-name: ESPHome tadiran widi Build
+name: ESPHome tadiran wifi Build
 
 on:
   workflow_dispatch:
@@ -21,3 +21,9 @@ jobs:
 
     - name: Build ESPHome tadiran wifi firmware
       run: esphome compile build/tadiran.yaml
+      
+    - name: Upload firmware artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: firmware
+        path: your_project/.pioenvs/gree/firmware.bin
