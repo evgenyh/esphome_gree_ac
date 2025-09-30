@@ -1,0 +1,24 @@
+name: Build ESPHome Firmware
+
+on:
+  workflow_dispatch:  # Manual trigger only
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build firmware
+        id: build-step
+        uses: esphome/build-action@v6
+        with:
+          yaml-file: build/tadiran.yaml  # Path to your YAML file
+          version: latest  # Optional: Pin ESPHome version, e.g., "2025.9.0"
+
+      - name: Upload firmware artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: firmware-files
+          path: "${{ steps.build-step.outputs.name }}"  # Folder with .bin files
