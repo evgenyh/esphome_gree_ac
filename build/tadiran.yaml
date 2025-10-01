@@ -52,16 +52,24 @@ uart:
 time:
   - platform: sntp
 
-# Text entity for user input (shows in web UI)
-text:
+# Select entity: Dropdown with common timezones
+select:
   - platform: template
-    name: "Timezone String"
-    id: tz_input
-    max_length: 63
+    name: "Timezone"
+    id: tz_select
+    mode: dropdown  # Required: renders as dropdown in web UI
     optimistic: true
+    initial_option: "UTC"
+    options:
+      # Common IANA TZ strings (expand via Python script if needed)
+      - "UTC"
+      - "Asia/Jerusalem"
+      - "Europe/Kyiv"
+      - "Etc/GMT+2"
     set_action:
       - lambda: |-
-          strncpy(id(tz_string), x.c_str(), sizeof(id(tz_string)) - 1);
+          const char* new_tz = x.c_str();
+          strncpy(id(tz_string), new_tz, sizeof(id(tz_string)) - 1);
           id(tz_string)[sizeof(id(tz_string)) - 1] = '\0';
           // Apply TZ immediately
           setenv("TZ", id(tz_string), 1);
@@ -75,12 +83,11 @@ sensor:
     name: "Current Timezone"
     lambda: |-
       return {id(tz_string)};
-    update_interval: never  # Static, update on change
-    filters:
-      - on_value:
-          then:
-            - lambda: |-
-                id(tz_input).publish_state(id(tz_input).state);
+    update_interval: never
+    on_value:
+      then:
+        - lambda: |-
+            id(tz_select).publish_state(id(tz_string));
 
 external_components:
   - source: github://gekkehenkie11/esphome_gree_ac
