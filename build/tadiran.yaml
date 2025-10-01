@@ -30,7 +30,6 @@ wifi:
     ssid: "tadiran-wifi"
     password: "1234567890"
 
-
 # Enable logging
 logger:
   baud_rate: 0 # disable LOG output on UART as UART is used for Sinclair AC unit
@@ -41,6 +40,13 @@ uart:
   rx_pin: 3
   baud_rate: 4800
   parity: EVEN
+
+text:
+  - platform: template
+    name: "Device Name"
+    id: devicename_text
+    optimistic: true
+    initial_value: "My Device"
 
 time:
   - platform: sntp
@@ -78,7 +84,7 @@ external_components:
 
 climate:
   - platform: sinclair_ac
-    name: ${devicename}
+    name: !lambda 'return id(devicename_text).state;'
     horizontal_swing_select:
       name: Horizontal Swing Mode
     vertical_swing_select:
