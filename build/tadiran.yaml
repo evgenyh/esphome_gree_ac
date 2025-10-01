@@ -55,6 +55,7 @@ external_components:
 climate:
   - platform: sinclair_ac
     name: ${devicename}
+    id: ac_controls
     horizontal_swing_select:
       name: ${devicename} Horizontal Swing Mode
     vertical_swing_select:
@@ -77,3 +78,24 @@ climate:
 button:
   - platform: restart
     name: "reboot ${devicename}"
+    id: reboot_device_button
+text_sensor:
+  - platform: version
+    name: "version"
+    id: firmware_version
+
+
+
+entity_group:
+  - name: "AC control"
+    entities:
+      - climate.ac_controls
+
+entity_group:
+  - name: "Firmware Info"
+    entities:
+      - text_sensor.firmware_version
+      - button.reboot_device_button
+
+
+
