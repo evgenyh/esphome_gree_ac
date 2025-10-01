@@ -21,7 +21,7 @@ web_server:
   local: true
   version: 3
   sorting_groups:
-    - id: sorting_group_ac-controls
+    - id: sorting_group_ac_controls
       name: "AC control"
       sorting_weight: 10
     - id: sorting_group_device_info
@@ -83,7 +83,7 @@ climate:
     save_switch:
       name: ${devicename} Save/8 Heat
     web_server:
-      sorting_group_id: sorting_group_ac-controls
+      sorting_group_id: sorting_group_ac_controls
     
 button:
   - platform: restart
