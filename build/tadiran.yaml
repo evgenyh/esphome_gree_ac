@@ -34,7 +34,7 @@ wifi:
 # Enable logging
 logger:
   baud_rate: 0 # disable LOG output on UART as UART is used for Sinclair AC unit
-  level: VERBOSE
+  level: DEBUG
 
 uart:
   tx_pin: 1
