@@ -51,6 +51,8 @@ uart:
 
 time:
   - platform: sntp
+    id: sntp_time
+    timezone: UTC
 
 # Select entity: Dropdown with common timezones
 select:
