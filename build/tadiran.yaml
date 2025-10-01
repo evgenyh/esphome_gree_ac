@@ -44,6 +44,7 @@ uart:
 text:
   - platform: template
     name: "Device Name"
+    mode: text
     id: devicename_text
     optimistic: true
     initial_value: "My Device"
