@@ -2,8 +2,8 @@ substitutions:
   node_name: tadiran # Use a unique name.
   node_id: Tadiran_ac    # Use a unique id.
   friendly_node_name: "Tadiran AC"
-#  deviceid: gree
-#  devicename: workroom
+  #deviceid: gree
+  devicename: mazgan
 
 esphome:
   name: tadiran
@@ -61,7 +61,7 @@ external_components:
 
 climate:
   - platform: sinclair_ac
-    name: !lambda 'return id(devicename_text).state;'
+    name: ${devicename}
     horizontal_swing_select:
       name: Horizontal Swing Mode
     vertical_swing_select:
