@@ -74,6 +74,6 @@ climate:
     save_switch:
       name: ${devicename} Save/8 Heat
     
-switch:
+button:
   - platform: restart
     name: "reboot ${devicename}"
