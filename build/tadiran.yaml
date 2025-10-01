@@ -52,31 +52,7 @@ text:
 time:
   - platform: sntp
     id: sntp_time
-    timezone: !lambda |-
-      if (id(device_timezone) != nullptr && id(device_timezone)->state.length() > 0) {
-        return id(device_timezone)->state;
-      } else {
-        return "UTC";
-      }
-
-select:
-  - platform: template
-    name: "Device Timezone"
-    optimistic: true
-    options:
-      - "UTC"
-      - "Europe/Kyiv"
-      - "America/New_York"
-      - "Asia/Jerusalem"
-      - "Etc/GMT+2"
-      # Add more timezones as required
-    initial_option: "UTC"
-    id: device_timezone
-    set_action:
-      - lambda: |-
-          // Store the selected timezone in ESPHome's preferences
-          id(device_timezone)->state = x;
-          // Optionally: call a function to configure time based on the selection
+    timezone: "Asia/Jerusalem"
 
 external_components:
   - source: github://gekkehenkie11/esphome_gree_ac
