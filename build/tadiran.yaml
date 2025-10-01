@@ -1,10 +1,3 @@
-# Global for TZ string
-globals:
-  - id: tz_string
-    type: char[64]
-    restore_value: yes  # Persist across reboots
-    initial_value: '{"UTC"}'
-
 substitutions:
   node_name: tadiran # Use a unique name.
   node_id: Tadiran_ac    # Use a unique id.
@@ -52,43 +45,31 @@ uart:
 time:
   - platform: sntp
     id: sntp_time
-    timezone: UTC
+    timezone: !lambda |-
+      if (id(device_timezone) != nullptr && id(device_timezone)->state.length() > 0) {
+        return id(device_timezone)->state;
+      } else {
+        return "UTC";
+      }
 
-# Select entity: Dropdown with common timezones
 select:
   - platform: template
-    name: "Timezone"
-    id: tz_select
+    name: "Device Timezone"
     optimistic: true
-    initial_option: "UTC"
     options:
-      # Common IANA TZ strings (expand via Python script if needed)
       - "UTC"
-      - "Asia/Jerusalem"
       - "Europe/Kyiv"
+      - "America/New_York"
+      - "Asia/Jerusalem"
       - "Etc/GMT+2"
+      # Add more timezones as required
+    initial_option: "UTC"
+    id: device_timezone
     set_action:
       - lambda: |-
-          const char* new_tz = x.c_str();
-          strncpy(id(tz_string), new_tz, sizeof(id(tz_string)) - 1);
-          id(tz_string)[sizeof(id(tz_string)) - 1] = '\0';
-          // Apply TZ immediately
-          setenv("TZ", id(tz_string), 1);
-          tzset();
-          // Force time sync
-          id(sntp_time).update();
-
-# Sensor to display current applied TZ (for verification)
-sensor:
-  - platform: template
-    name: "Current Timezone"
-    lambda: |-
-      return {id(tz_string)};
-    update_interval: never
-    on_value:
-      then:
-        - lambda: |-
-            id(tz_select).publish_state(id(tz_string));
+          // Store the selected timezone in ESPHome's preferences
+          id(device_timezone)->state = x;
+          // Optionally: call a function to configure time based on the selection
 
 external_components:
   - source: github://gekkehenkie11/esphome_gree_ac
