@@ -3,11 +3,11 @@ substitutions:
   node_id: Tadiran_ac    # Use a unique id.
   friendly_node_name: "Tadiran AC"
   #deviceid: gree
-  devicename: mazgan
+  devicename: "ac controller"
 
 esphome:
-  name: tadiran
-  friendly_name: "Tadiran AC"
+  name: "${node_name}"
+  friendly_name: "${friendly_node_name}"
   name_add_mac_suffix: true
 
 esp8266:
@@ -56,21 +56,24 @@ climate:
   - platform: sinclair_ac
     name: ${devicename}
     horizontal_swing_select:
-      name: Horizontal Swing Mode
+      name: ${devicename} Horizontal Swing Mode
     vertical_swing_select:
-      name: Vertical Swing Mode
+      name: ${devicename} Vertical Swing Mode
     display_select:
-      name: Display Mode
+      name: ${devicename} Display Mode
     display_unit_select:
-      name: Display Unit
+      name: ${devicename} Display Unit
     plasma_switch:
-      name: Plasma
+      name: ${devicename} Plasma
     beeper_switch:
-      name: Beeper      
+      name: ${devicename} Beeper      
     sleep_switch:
-      name: Sleep
+      name: ${devicename} Sleep
     xfan_switch:
-      name: X-fan
+      name: ${devicename} X-fan
     save_switch:
-      name: Save/8 Heat  
+      name: ${devicename} Save/8 Heat
     
+switch:
+  - platform: restart
+    name: "reboot ${devicename}"
