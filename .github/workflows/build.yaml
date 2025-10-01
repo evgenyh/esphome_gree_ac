@@ -1,4 +1,4 @@
-name: Build ESPHome Firmware
+name: Build esphome tadiran firmware
 
 on:
   workflow_dispatch:  # Manual trigger only
