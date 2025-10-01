@@ -25,9 +25,6 @@ ota:
   - platform: web_server
 
 wifi:
-  ssid: "wifi"
-  password: "wifi_password"
-
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
     ssid: "tadiran-wifi"
