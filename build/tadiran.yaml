@@ -1,3 +1,10 @@
+# Global for TZ string
+globals:
+  - id: tz_string
+    type: char[64]
+    restore_value: yes  # Persist across reboots
+    initial_value: '{"UTC"}'
+
 substitutions:
   node_name: tadiran # Use a unique name.
   node_id: Tadiran_ac    # Use a unique id.
@@ -45,6 +52,36 @@ uart:
 time:
   - platform: sntp
 
+# Text entity for user input (shows in web UI)
+text:
+  - platform: template
+    name: "Timezone String"
+    id: tz_input
+    max_length: 63
+    optimistic: true
+    set_action:
+      - lambda: |-
+          strncpy(id(tz_string), x.c_str(), sizeof(id(tz_string)) - 1);
+          id(tz_string)[sizeof(id(tz_string)) - 1] = '\0';
+          // Apply TZ immediately
+          setenv("TZ", id(tz_string), 1);
+          tzset();
+          // Force time sync
+          id(sntp_time).update();
+
+# Sensor to display current applied TZ (for verification)
+sensor:
+  - platform: template
+    name: "Current Timezone"
+    lambda: |-
+      return {id(tz_string)};
+    update_interval: never  # Static, update on change
+    filters:
+      - on_value:
+          then:
+            - lambda: |-
+                id(tz_input).publish_state(id(tz_input).state);
+
 external_components:
   - source: github://gekkehenkie11/esphome_gree_ac
     components: [sinclair_ac]
@@ -54,21 +91,21 @@ climate:
   - platform: sinclair_ac
     name: ${devicename}
     horizontal_swing_select:
-      name: ${devicename} Horizontal Swing Mode
+      name: Horizontal Swing Mode
     vertical_swing_select:
-      name: ${devicename} Vertical Swing Mode
+      name: Vertical Swing Mode
     display_select:
-      name: ${devicename} Display Mode
+      name: Display Mode
     display_unit_select:
-      name: ${devicename} Display Unit
+      name: Display Unit
     plasma_switch:
-      name: ${devicename} Plasma
+      name: Plasma
     beeper_switch:
-      name: ${devicename} Beeper      
+      name: Beeper      
     sleep_switch:
-      name: ${devicename} Sleep
+      name: Sleep
     xfan_switch:
-      name: ${devicename} X-fan
+      name: X-fan
     save_switch:
-      name: ${devicename} Save/8 Heat  
+      name: Save/8 Heat  
     
