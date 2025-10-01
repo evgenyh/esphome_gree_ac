@@ -90,12 +90,8 @@ entity_group:
   - name: "AC control"
     entities:
       - climate.ac_controls
-
-entity_group:
   - name: "Firmware Info"
     entities:
       - text_sensor.firmware_version
       - button.reboot_device_button
-
-
 
