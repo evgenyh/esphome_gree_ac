@@ -42,14 +42,6 @@ uart:
   baud_rate: 4800
   parity: EVEN
 
-text:
-  - platform: template
-    name: "Device Name"
-    mode: text
-    id: devicename_text
-    optimistic: true
-    initial_value: "My Device"
-
 time:
   - platform: sntp
     id: sntp_time
