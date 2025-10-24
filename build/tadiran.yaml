@@ -97,4 +97,8 @@ text_sensor:
     id: firmware_version
     web_server:
       sorting_group_id: sorting_group_device_info
+sensor:
+  - platform: wifi_signal
+    name: "WiFi signal level"
+    update_interval: 120s
 
