@@ -1,4 +1,4 @@
-name: Build esphome tadiran firmware
+name: Build esphome midea/electra firmware
 
 on:
   workflow_dispatch:  # Manual trigger only
