@@ -137,6 +137,11 @@ switch:
     turn_off_action:
       midea_ac.beeper_off:
 
+text_sensor:
+  - platform: version
+    name: "version"
+    id: firmware_version
+
 # Sensor from HASS for setting up FollowMe temperature
 remote_transmitter:
   pin: GPIO13                       # For slwf-01pro-v2 dongle
@@ -168,9 +173,6 @@ sensor:
     icon: mdi:clock-start
     unit_of_measurement: days
     update_interval: 60s
-  - platform: version
-    name: "version"
-    id: firmware_version
     
 # "Power toggle" script
 script:
